@@ -9,7 +9,12 @@ class LineReaderTest extends FunSuite {
        |Ann, 3.0,6,hola
        |""".stripMargin
 
-  test("readLines") {
-    println(LineReader.fromStr.extractLines(lines))
+  val expected = Array("Doe, 5.0,,3", "Ann, 3.0,6,hola")
+  test("fromStr") {
+    assert(LineReader.fromStr.extractLines(lines) sameElements expected)
+  }
+
+  test("fromFile") {
+    assert(LineReader.fromFileName.extractLines("src/test/test2.txt") sameElements expected)
   }
 }
