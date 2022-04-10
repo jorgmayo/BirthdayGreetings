@@ -35,8 +35,8 @@ object Converter {
   val fileNameToIterator: Converter[String, Iterator[String]] = new Converter[String, Iterator[String]] {
     override def map(x: String): Iterator[String] = {
       try {
-        val str = Using(Source.fromFile(x)) { source => source.getLines()}
-        str.get
+        val str = Source.fromFile(x).getLines()
+        str.drop(1)
       } catch {
         case _: Exception => throw new RuntimeException("something wrong reading file")
       }
