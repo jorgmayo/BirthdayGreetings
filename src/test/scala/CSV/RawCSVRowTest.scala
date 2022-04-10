@@ -11,7 +11,7 @@ class RawCSVRowTest extends FunSuite {
        |Ann, 3.0,6,hola
        """.stripMargin
   test("genMap") {
-    val headers: List[Header] = HeaderReader.fromFirstLine.extractHeaders(lines)
+    val headers: Array[Header] = HeaderReader.fromFirstLine.extractHeaders(lines)
     val linesRead = LineReader.fromStr.extractLines(lines)
     val extracted: RawCSVRow = Converter.fromHeadersAndLine(headers).map(linesRead.head)
 

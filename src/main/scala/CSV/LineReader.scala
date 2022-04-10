@@ -36,4 +36,11 @@ object LineReader {
       }
     }
   }
+
+  val fromIterator: LineReader[Iterator[String]] = new LineReader[Iterator[String]] {
+    val takeNext: Int = 1
+    def takeNext(x: Iterator[String]): Array[String] = x.take(takeNext).toArray
+    override def toStr(x: Iterator[String]): String = x.next()
+    override def extractLines(x: Iterator[String]): Array[String] = takeNext(x)
+  }
 }

@@ -1,10 +1,2 @@
-[debug] downloaded https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.8.0/jna-5.8.0-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/jline/jline/3.20.0/jline-3.20.0-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.7/scala-library-2.13.7-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.7/scala-compiler-2.13.7-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/jline/jline/3.20.0/jline-3.20.0-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.8.0/jna-5.8.0-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.7/scala-reflect-2.13.7-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.13.7/scala-reflect-2.13.7-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.13.7/scala-compiler-2.13.7-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.7/scala-library-2.13.7-javadoc.jar
+[0m[[0m[0mdebug[0m] [0m[0mdownloaded https://repo1.maven.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.5.3/compiler-bridge_2.13-1.5.3.pom[0m
+[0m[[0m[0mdebug[0m] [0m[0mdownloaded https://repo1.maven.org/maven2/org/scala-sbt/compiler-bridge_2.13/1.5.3/compiler-bridge_2.13-1.5.3-sources.jar[0m
