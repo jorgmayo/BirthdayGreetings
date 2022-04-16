@@ -1,6 +1,6 @@
 package Converters
 
-import CSV.Birthday.{CSVDate, CSVEmail}
+import CSV.Birthday.{CSVDate, CSVEmail, CSVFName, CSVLName}
 import CSV.Parser.SimpleParser
 import CSV.Raw.{CSVVal, CSVValStr, Header, HeaderTyped, RawCSVRow}
 import Reader.{HeaderReader, LineReader}

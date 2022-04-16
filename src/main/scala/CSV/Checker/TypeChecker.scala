@@ -17,8 +17,9 @@ object TypeChecker {
   val emailTypeChecker = new TypeChecker[CSVVal] {
     private val email = ".*@.*".r
     override def typeCheck(value: CSVVal): Boolean = {
+      if(value.refType != CSVEmail.refType) false
       value match {
-        case s : CSVEmail => email.matches(s.email)
+        case s: CSVEmail => email.matches(s.email)
         case _ => false
       }
     }
@@ -26,8 +27,8 @@ object TypeChecker {
 
   val dateTypeChecker = new TypeChecker[CSVVal] {
     override def typeCheck(value: CSVVal): Boolean = {
-      value match {
-        case s : CSVDate => true
+      value.refType match {
+        case CSVDate.refType => true
         case _ => false
       }
     }
@@ -35,8 +36,8 @@ object TypeChecker {
 
   val firstNameTypeChecker = new TypeChecker[CSVVal] {
     override def typeCheck(value: CSVVal): Boolean = {
-      value match {
-        case s : CSVFName => true
+      value.refType match {
+        case CSVFName.refType => true
         case _ => false
       }
     }
@@ -44,8 +45,8 @@ object TypeChecker {
 
   val lastNameTypeChecker = new TypeChecker[CSVVal] {
     override def typeCheck(value: CSVVal): Boolean = {
-      value match {
-        case s : CSVLName => true
+      value.refType match {
+        case CSVLName.refType => true
         case _ => false
       }
     }

@@ -1,6 +1,6 @@
 package CSV.Birthday
 
-import CSV.Raw.CSVVal
+import CSV.Raw.{CSVVal, CSVValStr}
 
 trait BirthdayCSVVal extends CSVVal
 
@@ -13,19 +13,19 @@ object CSVEmail {
 }
 
 case class CSVFName(firstName: String) extends BirthdayCSVVal {
-  override val refType: String = CSVFName.refType
+  override val refType: String = CSVValStr.refType
 }
 
 object CSVFName {
-  val refType: String = "first_name"
+  val refType: String = CSVValStr.refType
 }
 
 case class CSVLName(lastName: String) extends BirthdayCSVVal {
-  override val refType: String = CSVLName.refType
+  override val refType: String = CSVValStr.refType
 }
 
 object CSVLName {
-  val refType: String = "last_name"
+  val refType: String = CSVValStr.refType
 }
 
 case class CSVDate(date: String) extends BirthdayCSVVal {
