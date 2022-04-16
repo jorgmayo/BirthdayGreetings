@@ -1,7 +1,9 @@
 package Converters
 
-import CSV.{HeaderReader, LineReader, RawCSVRow, SimpleParser}
-import Reader.{CSVVal, Header, RawCSV}
+import CSV.Birthday.{CSVDate, CSVEmail}
+import CSV.Parser.SimpleParser
+import CSV.Raw.{CSVVal, CSVValStr, Header, HeaderTyped, RawCSVRow}
+import Reader.{HeaderReader, LineReader}
 
 import scala.io.Source
 import scala.util.Using
@@ -39,6 +41,33 @@ object Converter {
         str.drop(1)
       } catch {
         case _: Exception => throw new RuntimeException("something wrong reading file")
+      }
+    }
+  }
+
+  val fileNameToRawCSVRowIT = new Converter[String, Iterator[RawCSVRow]] {
+    override def map(x: String): Iterator[RawCSVRow] = {
+      val headers = HeaderReader.fromFileName.extractHeaders(x)
+      val lineIt = Converter.fileNameToIterator.map(x)
+      fromStrItToRawCSVRowIT(headers).map(lineIt)
+    }
+  }
+
+  def fromStrItToRawCSVRowIT(headers: Array[Header]) =
+    new Converter[Iterator[String], Iterator[RawCSVRow]] {
+      override def map(x: Iterator[String]): Iterator[RawCSVRow] = {
+        x.map(fromHeadersAndLine(headers).map(_))
+    }
+  }
+
+  val fromHeaderToBirthdayTypedHeader = new Converter[Header, HeaderTyped] {
+    override def map(x: Header): HeaderTyped = {
+      x.name match {
+        case "email" => HeaderTyped("email", CSVEmail.refType)
+        case "date" => HeaderTyped("date", CSVDate.refType)
+        case "first_name" => HeaderTyped("first_name", CSVValStr.refType)
+        case "last_name" => HeaderTyped("last_name", CSVValStr.refType)
+        case _ => throw new RuntimeException("impossible to parse value")
       }
     }
   }

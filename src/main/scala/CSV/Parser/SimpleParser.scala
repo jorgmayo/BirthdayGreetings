@@ -1,8 +1,7 @@
-package CSV
+package CSV.Parser
 
-import Reader.{CSVVal, CSVValFloat, CSVValInt, CSVValNull, CSVValStr}
-
-import javax.swing.JToolBar.Separator
+import CSV.Raw.{CSVVal, CSVValFloat, CSVValInt, CSVValNull, CSVValStr}
+import CSV._
 
 /**
  * Transforma texto plano en una lista con los valores parseados
@@ -25,8 +24,8 @@ trait SimpleParser[B] {
 object SimpleParser {
   val toCSVVal = new SimpleParser[CSVVal] {
 
-    val int: String => Option[Int] = tryIt(Integer.parseInt)
-    val float: String => Option[Float] = tryIt(_.toFloat)
+    private val int: String => Option[Int] = tryIt(Integer.parseInt)
+    private val float: String => Option[Float] = tryIt(_.toFloat)
 
     override def parseVal(x: String): CSVVal = {
       x match {
@@ -40,8 +39,9 @@ object SimpleParser {
         }
       }
     }
-
   }
+
+
   private def tryIt[A, B](f: String => B): String => Option[B] = {
     s => try {
       Option(f(s))

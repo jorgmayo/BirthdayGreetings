@@ -1,6 +1,6 @@
 package Reader
 
-import CSV.SimpleParser
+import CSV.Parser.SimpleParser
 
 class RawCSVTest extends org.scalatest.FunSuite {
 

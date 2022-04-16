@@ -1,7 +1,7 @@
 package Converters
 
-import CSV.HeaderReader
-import Reader.Header
+import CSV.Raw.Header
+import Reader.HeaderReader
 import org.scalatest.FunSuite
 
 class HeaderReaderTest extends FunSuite {

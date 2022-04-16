@@ -1,7 +1,5 @@
-package CSV
+package Reader
 
-import java.io.File
-import javax.swing.JToolBar.Separator
 import scala.io.Source
 import scala.util.Using
 

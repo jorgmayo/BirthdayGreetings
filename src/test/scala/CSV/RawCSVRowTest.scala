@@ -1,7 +1,8 @@
 package CSV
 
+import CSV.Raw.{Header, RawCSVRow}
 import Converters.Converter
-import Reader.{CSVVal, Header}
+import Reader.{HeaderReader, LineReader}
 import org.scalatest.FunSuite
 
 class RawCSVRowTest extends FunSuite {

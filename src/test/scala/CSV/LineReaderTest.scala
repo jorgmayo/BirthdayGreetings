@@ -1,5 +1,6 @@
 package CSV
 
+import Reader.LineReader
 import org.scalatest.FunSuite
 
 class LineReaderTest extends FunSuite {

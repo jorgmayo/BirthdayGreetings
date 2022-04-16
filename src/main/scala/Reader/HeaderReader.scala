@@ -1,6 +1,6 @@
-package CSV
+package Reader
 
-import Reader.Header
+import CSV.Raw.Header
 
 import scala.io.Source
 import scala.util.Using

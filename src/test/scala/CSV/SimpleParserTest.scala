@@ -1,7 +1,9 @@
 package CSV
 
-import Reader.{CSVValFloat, CSVValInt, CSVValNull, CSVValStr}
+import CSV.Parser.SimpleParser
+import CSV.Raw.{CSVValFloat, CSVValInt, CSVValNull, CSVValStr}
 import org.scalatest.FunSuite
+
 
 class SimpleParserTest extends FunSuite {
 
