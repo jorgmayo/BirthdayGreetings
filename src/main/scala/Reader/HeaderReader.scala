@@ -1,12 +1,14 @@
 package Reader
 
-import CSV.Raw.Header
+import CSV.Raw.{Header, HeaderTyped}
+import Converters.Converter
 
 import scala.io.Source
 import scala.util.Using
 
 trait HeaderReader[Source] {
   def extractHeaders(s: Source): Array[Header]
+
   def getFromLine(s: String): Array[Header] = s.split(",")
     .map(s => s.trim)
     .map(s => Header(s))
@@ -18,6 +20,13 @@ object HeaderReader {
       getFromLine(s.split("\n")(0))
     }
   }
+
+  val fromLazyList: HeaderReader[LazyList[String]] = new HeaderReader[LazyList[String]] {
+    override def extractHeaders(s: LazyList[String]): Array[Header] = {
+      getFromLine(s.head)
+    }
+  }
+
   val fromFileName = new HeaderReader[String] {
     override def extractHeaders(s: String): Array[Header] = try {
       val str = Using(Source.fromFile(s)) { source => source.getLines().next()}

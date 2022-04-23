@@ -1,6 +1,7 @@
 package Converters
 
-import CSV.Raw.{CSVValFloat, CSVValInt, CSVValNull, CSVValStr, Header, RawCSVRow}
+import CSV.Birthday.CSVEmail
+import CSV.Raw.{CSVValFloat, CSVValInt, CSVValNull, CSVValStr, Header, HeaderTyped, RawCSVRow}
 import Reader.HeaderReader
 import org.scalatest.FunSuite
 
@@ -8,51 +9,47 @@ import scala.annotation.tailrec
 
 class ConverterTest extends FunSuite {
   val path = "src/test/test2.txt"
-  val headers: Array[Header] = HeaderReader.fromFileName.extractHeaders(path)
+  val lList:  LazyList[String] = Converter.fileNameToLazyList.map(path)
+  val headers: Array[Header] = HeaderReader.fromLazyList.extractHeaders(lList)
 
   val expected: List[RawCSVRow] = RawCSVRow(
-    Map(
-      Header("last_name") -> CSVValStr("Doe"),
-      Header("first_name") -> CSVValFloat(5.0),
-      Header("date_of_birth") -> CSVValNull,
-      Header("email") -> CSVValInt(3)
-    )
+  Map(
+  Header("last_name") -> CSVValStr("Doe"),
+  Header("first_name") -> CSVValFloat(5.0),
+  Header("date_of_birth") -> CSVValNull,
+  Header("email") -> CSVValInt(3)
+  )
   ) ::
-    RawCSVRow(
-    Map(
-      Header("last_name") -> CSVValStr("Ann"),
-      Header("first_name") -> CSVValFloat(3.0),
-      Header("date_of_birth") -> CSVValInt(6),
-      Header("email") -> CSVValStr("hola")
-    )
+  RawCSVRow(
+  Map(
+  Header("last_name") -> CSVValStr("Ann"),
+  Header("first_name") -> CSVValFloat(3.0),
+  Header("date_of_birth") -> CSVValInt(6),
+  Header("email") -> CSVValStr("hola")
+  )
   ) :: Nil
 
 
-  test("fromIterator") {
-    val lineIt = Converter.fileNameToIterator.map(path)
-    val rawCsVRows: List[RawCSVRow] = collect(lineIt, Nil)
-    assert(rawCsVRows sameElements expected.reverse)
+  test("fromLList") {
+    val rawCsVRows: List[RawCSVRow] = collect(lList, Nil)
+    assert(rawCsVRows sameElements expected)
   }
 
   test("fromStrItToRawCSVRowIT") {
-    val lineIt = Converter.fileNameToIterator.map(path)
-    val csvIt = Converter.fromStrItToRawCSVRowIT(headers).map(lineIt)
-    assert(csvIt sameElements expected)
+    val csvList = Converter.fromLazyListToRawCSVRowLazyList(headers).map(lList.drop(1))
+    assert(csvList sameElements expected)
   }
 
-  test("fileNameToRawCSVRowIT") {
-    val csvIt = Converter.fileNameToRawCSVRowIT.map(path)
-    assert(csvIt sameElements expected)
+  test("from_CSVVal_To_TypedCSVVAlTest") {
+    val email = CSVValStr("jorge.mayoral@devo.com")
+    val header = HeaderTyped("email", CSVEmail.refType)
+    val tuple = (header, email)
+    val result = Converter.from_CSVVal_To_TypedCSVVal.map(tuple)
+    assert(result.equals(CSVEmail(email.x)))
   }
 
-  @tailrec
-  final def collect(it: Iterator[String], acc: List[RawCSVRow]): List[RawCSVRow] = {
-    if (!it.hasNext) acc
-    else {
-      val line = it.next()
-      val thisRawCSVRow = Converter.fromHeadersAndLine(headers).map(line)
-      collect(it, thisRawCSVRow :: acc)
-    }
+  final def collect(lList: LazyList[String], acc: List[RawCSVRow]): List[RawCSVRow] = {
+    lList.drop(1).map(Converter.fromHeadersAndLine(headers).map).toList
   }
 
 }

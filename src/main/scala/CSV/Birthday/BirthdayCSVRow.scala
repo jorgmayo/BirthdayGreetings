@@ -3,7 +3,7 @@ package CSV.Birthday
 import CSV.Checker.TypeChecker
 import CSV.Raw.{CSVVal, HeaderTyped}
 
-protected case class BirthdayCSVRow(row: Map[HeaderTyped, CSVVal])
+case class BirthdayCSVRow(protected val row: Map[HeaderTyped, CSVVal])
 
 object BirthdayCSVRow {
 

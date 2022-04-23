@@ -1,4 +1,3 @@
 package CSV.Raw
 
-case class
-RawCSVRow(map: Map[Header, CSVVal])
+case class RawCSVRow(row: Map[Header, CSVVal])
